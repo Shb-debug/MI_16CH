@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3e8">
+  <title>脑机接口 · 抓苹果</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nunito:wght@500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="返回项目首页"><span class="brand-mark">✳</span><span>脑电果园<span class="brand-light">NEURO APPLE ORCHARD</span></span></a>
+      <div class="top-status"><span class="live-dot" id="connectionDot"></span><span id="connectionText">正在连接脑机接口</span></div>
+    </header>
+
+    <section class="intro">
+      <div class="intro-copy"><p class="eyebrow">MOTOR IMAGERY · LEFT HAND</p><h1>摘一颗<span>苹果</span></h1><p class="subtitle">放松身体，想象左手轻轻握住苹果。你的意图将驱动机械臂完成采摘。</p>
+        <div class="actions"><button id="startBtn" class="start-button"><span class="button-icon">▶</span>开始采摘</button><button id="stopBtn" class="quiet-button" disabled>暂停</button></div>
+      </div>
+      <div class="session-chip"><span class="chip-leaf">✳</span><span><small>本次采摘</small><b><i id="pickedCount">0</i> <small>颗</small></b></span></div>
+    </section>
+
+    <section class="content-grid">
+      <div class="orchard-card">
+        <div class="orchard-heading"><div><p class="eyebrow">APPLE ORCHARD</p><h2>果园</h2></div><div class="season-label"><span>☀</span> 收获季</div></div>
+        <div class="orchard" id="orchard" aria-label="苹果树，苹果会在机械臂成功采摘后移入果篮">
+          <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+          <svg class="tree" viewBox="0 0 640 420" role="img" aria-label="一棵长满苹果的树">
+            <defs><linearGradient id="trunk" x1="0" x2="1"><stop stop-color="#815536"/><stop offset="1" stop-color="#aa7245"/></linearGradient><linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#79a86b"/><stop offset="1" stop-color="#3f7757"/></linearGradient></defs>
+            <path d="M302 355c8-75-12-130-4-191 5-35 19-55 35-78 9-13 27-8 23 7-11 38-20 59-17 81 19-31 42-53 68-71 13-9 26 4 16 17-26 32-52 59-69 99 35-18 65-24 102-25 17 0 18 18 1 22-50 10-88 26-119 56-4 29-2 56 5 83z" fill="url(#trunk)"/>
+            <g fill="url(#leaf)"><ellipse cx="292" cy="117" rx="116" ry="80"/><ellipse cx="393" cy="132" rx="122" ry="82"/><ellipse cx="235" cy="183" rx="112" ry="77"/><ellipse cx="362" cy="204" rx="132" ry="83"/><ellipse cx="287" cy="72" rx="83" ry="58"/></g>
+            <g fill="#a9c792" opacity=".5"><ellipse cx="253" cy="101" rx="30" ry="15"/><ellipse cx="386" cy="99" rx="36" ry="15"/><ellipse cx="203" cy="172" rx="34" ry="14"/><ellipse cx="403" cy="180" rx="40" ry="16"/><ellipse cx="305" cy="55" rx="24" ry="11"/></g>
+          </svg>
+          <div id="appleLayer" class="apple-layer"></div>
+          <div class="ground"><span></span><span></span><span></span></div>
+          <div class="basket" id="basket"><div class="basket-handle"></div><div class="basket-body"></div><div class="basket-weave"></div><div class="basket-caption">已采摘</div><div id="basketApples" class="basket-apples"></div></div>
+          <div id="feedback" class="feedback" aria-live="polite"><span class="feedback-icon">✦</span><span id="feedbackText">等待左手抓取想象</span></div>
+        </div>
+        <div class="orchard-legend"><span><i class="legend-apple"></i>树上的苹果</span><span><i class="legend-basket"></i>机械臂已采摘</span><span class="orchard-hint">成功确认后苹果才会入篮</span></div>
+      </div>
+
+      <aside class="side-column">
+        <section class="panel status-panel"><div class="panel-title"><span class="panel-icon">⌁</span><h2>设备状态</h2></div>
+          <div class="device-row"><span class="device-icon brain">◉</span><span class="device-label"><b>脑机接口</b><small id="bciDetail">等待服务连接</small></span><span id="bciState" class="state-pill waiting">连接中</span></div>
+          <div class="device-row"><span class="device-icon arm">⌁</span><span class="device-label"><b>机械臂</b><small id="armDetail">等待动作反馈</small></span><span id="armState" class="state-pill waiting">待确认</span></div>
+          <div class="device-row"><span class="device-icon signal">≈</span><span class="device-label"><b>信号质量</b><small id="signalDetail">尚无实时数据</small></span><span id="signalState" class="state-pill neutral">--</span></div>
+        </section>
+        <section class="panel intent-panel"><div class="panel-title"><span class="panel-icon intent-icon">✋</span><h2>当前识别</h2></div>
+          <div id="intentDisplay" class="intent-display"><span class="intent-orbit"></span><span id="intentEmoji">☝</span></div><div id="intentState" class="intent-state">尚未开始</div><p id="intentHint" class="intent-hint">开始后请保持放松并进行左手抓取想象</p>
+          <div class="probability"><div><span>识别概率</span><b id="probabilityText">--%</b></div><div class="probability-track"><span id="probabilityBar"></span></div></div>
+        </section>
+        <section class="panel tip-panel"><span class="tip-sparkle">✳</span><div><b>小提示</b><p>只在脑中想象抓握动作，保持手臂与手指不动。</p></div></section>
+      </aside>
+    </section>
+    <footer><span>NeuroGarden</span><span>脑机意图 · 机械臂执行 · 成功后入篮</span><a href="/">返回左手抓取训练页 ↗</a></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "protocol": "FT-SCS-STS",
+  "transport": "usb_rs485",
+  "serial_port": "COM9",
+  "baudrate": 1000000,
+  "response_timeout_seconds": 0.15,
+  "pose_settle_seconds": 0.8,
+  "position_tolerance": 100,
+  "pose_timeout_seconds": 20.0,
+  "default_speed": 250,
+  "servos": [
+    {"id": 1, "joint": "top_joint_1"},
+    {"id": 2, "joint": "top_joint_2"},
+    {"id": 3, "joint": "top_joint_3"},
+    {"id": 4, "joint": "top_joint_4"},
+    {"id": 5, "joint": "top_joint_5"},
+    {"id": 6, "joint": "gripper"}
+  ],
+  "sequence": ["home", "approach", "grasp", "lift", "hold"],
+  "poses": {
+    "home": {
+      "1": {"position": 2061}, "2": {"position": 883}, "3": {"position": 3093},
+      "4": {"position": 2840}, "5": {"position": 2053}, "6": {"position": 1122}
+    },
+    "approach": {
+      "1": {"position": 2052}, "2": {"position": 2626}, "3": {"position": 1644},
+      "4": {"position": 2839}, "5": {"position": 2052}, "6": {"position": 1126}
+    },
+    "grasp": {
+      "1": {"position": 2052}, "2": {"position": 2626}, "3": {"position": 1645},
+      "4": {"position": 2832}, "5": {"position": 2051}, "6": {"position": 974}
+    },
+    "lift": {
+      "1": {"position": 2025}, "2": {"position": 2182}, "3": {"position": 1906},
+      "4": {"position": 2641}, "5": {"position": 2053}, "6": {"position": 974}
+    },
+    "hold": {
+      "1": {"position": 2028}, "2": {"position": 1584}, "3": {"position": 1912},
+      "4": {"position": 2823}, "5": {"position": 2052}, "6": {"position": 974}
+    }
+  }
+}

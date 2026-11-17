@@ -1,0 +1,7 @@
+numpy>=1.23
+scipy>=1.9
+scikit-learn>=1.2
+joblib>=1.2
+pylsl>=1.18.2
+websockets>=10.4
+pyserial>=3.5

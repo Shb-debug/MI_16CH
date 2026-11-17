@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Neuro Grip Lab</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="visual-overrides.css"><link rel="stylesheet" href="motion.css"></head>
+<body>
+<section id="welcome" class="welcome"><div class="welcome-card"><div class="eyebrow">EEG MOTOR IMAGERY TRAINING</div><h1>左手抓取训练</h1><p>通过想象左手抓取，控制第一视角中的水杯。</p><div class="rule"><span>触发阈值</span><strong>25%</strong></div><div class="rule"><span>目标动作</span><strong>LEFT HAND GRASP</strong></div><button id="startBtn" class="primary">开始训练</button><small>请保持身体放松，只想象左手抓住水杯，不要真实移动左手。</small></div></section>
+<main id="app" class="app hidden"><header><div><div class="eyebrow">NEURO GRIP LAB · LEFT HAND</div><h1>左手抓取实验</h1></div><span id="mode" class="pill">CONNECTING</span></header>
+<section class="layout"><aside class="panel left"><h3>系统状态</h3><div class="rows"><div>LSL <b id="lsl">未连接</b></div><div>模型 <b id="model">未加载</b></div><div>信号 <b id="quality">--</b></div><div>采样率 <b id="rate">--</b></div><div>当前状态 <b id="state">等待开始</b></div></div><div class="threshold-note">抓取判定阈值<br><strong>25%</strong></div></aside>
+<section class="scene"><div class="scene-label">第一视角 · WATER CUP TASK</div><div class="table"></div><div class="cup" id="cup"><div class="cup-water"></div><div class="cup-body"></div><div class="cup-handle"></div></div><div class="hand" id="hand">✋</div><div class="scene-message" id="message">点击“开始训练”进入场景</div><div class="event-badge" id="eventBadge">等待后端确认抓取事件</div></section>
+<aside class="panel right"><h3>鼠标控制</h3><p class="control-note">你也可以使用鼠标按钮直接控制场景。</p><button id="dropBtn" class="control">放下水杯</button><button id="endBtn" class="control danger">结束实验</button><div class="stats"><span>成功抓取次数</span><strong id="count">0</strong></div><h3>最近事件</h3><ol id="events"></ol></aside></section><footer>真实模式：OpenBCI GUI → LSL → Python；演示模式会标注 SIMULATED。</footer></main>
+<section id="summary" class="welcome hidden"><div class="welcome-card"><div class="eyebrow">SESSION COMPLETE</div><h1>训练结束</h1><p>本次实验成功抓取水杯：</p><div class="final-count" id="finalCount">0</div><p>次</p><button id="againBtn" class="primary">再次训练</button></div></section>
+<script src="app.js"></script></body></html>
